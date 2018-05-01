@@ -1,0 +1,638 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=10.0; user-scalable=1;" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, height=device-height">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Runs Radio</title>
+    <link rel="stylesheet" href="css/framework7.ios.css">
+    <link rel="stylesheet" href="css/framework7.ios.colors.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+    <link rel="stylesheet" href="css/ea.css">
+    <link rel="icon" href="img/depan.png">
+    <link rel="apple-touch-icon" href="img/depan.png">
+    <link rel="stylesheet" href="css/safina.css">
+    <link rel="stylesheet" href="css/emoticons.css">
+    <link href="support/skype/emoticons.css" rel="stylesheet" type="text/css">
+    <!--
+      Name       : RunsRadio App
+      Developer  : Connect N3TS by @rafipriatna
+      Created with <3 in Lab Computer 2 - 17 September 2017.
+    -->
+		<style>
+    /* Gaya tambahan :v  */
+		#oflen {
+			animation: 0.5s fadeIn;
+			animation-fill-mode: forwards;
+			display:inline-block;
+			visibility: hidden;
+			margin-top:1px;
+			margin-bottom:1px;
+		}
+		@keyframes fadeIn{
+			99%{
+				visibility: hidden;
+			}
+			100% {
+				visibility: visible;
+			}
+		}
+		#rafiganteng {
+        -webkit-animation-name: blinker;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
+
+        -moz-animation-name: blinker;
+        -moz-animation-duration: 1s;
+        -moz-animation-timing-function: linear;
+        -moz-animation-iteration-count: infinite;
+
+        animation-name: blinker;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        }
+
+        @-moz-keyframes blinker {
+        0% { opacity: 1.0; }
+        50% { opacity: 0.0; }
+        100% { opacity: 1.0; }
+        }
+
+        @-webkit-keyframes blinker {
+        0% { opacity: 1.0; }
+        50% { opacity: 0.0; }
+        100% { opacity: 1.0; }
+        }
+
+        @keyframes blinker {
+        0% { opacity: 1.0; }
+        50% { opacity: 0.0; }
+        100% { opacity: 1.0; }
+    }
+    .plyr__tooltip {
+        display:none;
+    }
+    #jadwal .item-title {
+      font-size:18px;
+      padding-top:3px;
+      text-transform: uppercase;
+    }
+    #kontribusi .icon {
+      padding:2px;
+    }
+    #hatiku {
+      color:red;
+      font-size:21px;
+    }
+		</style>
+  <script type="text/javascript">
+  // Ketika app dibuka
+  function onLoad() {
+      var tim = window.setTimeout("hideRafiganteng()", 2000);
+      document.addEventListener("deviceready", onDeviceReady, false);
+  }
+  // Memuat aplikasinya
+  function onDeviceReady() {
+  // Menambahkan fungsi tombol fisik back.
+      document.addEventListener("backbutton", onBackKeyDown, false);
+  }
+  // Ketika tombol back di sentuh.
+  function onBackKeyDown() {
+    myApp.confirm('Apakah kamu yakin ingin keluar dari aplikasi sekarang?','Runs Radio', function () {
+          navigator.app.exitApp();
+          newUser.remove();
+      });
+  }
+  </script>
+  </head>
+      <!-- Isi aplikasi dimulai dari sini -->
+  <body onload = "onLoad()" >
+<div class="views tabs toolbar-through">
+			<!-- Tab Pertama -->
+<div id="view-1" class="view view-main tab active">
+ <div class="navbar">
+  <div class="navbar-inner">
+		<div class="center sliding">Runs Radio</div>
+    <div class="right">
+            <a onclick="login(); this.onclick=null;" href="#" class="open-login-screen"><i style="font-size:30px;" class="icon f7-icons">chats</i></a>
+        </div>
+	</div>
+</div>
+	<div class="pages navbar-through">
+		<div class="pages">
+	<div data-page="index-1" class="page">
+<div class="page-content pull-to-refresh-content">
+         <div class="pull-to-refresh-layer">
+          <div class="preloader"></div>
+          <div class="pull-to-refresh-arrow"></div>
+         </div>
+	<center>
+		<img src="img/depan.png" width="150px" height="150px">
+			<!-- Ini isi radio controlnya ea -->
+<div id="ea" class="card">
+  <div class="card-content">
+       <div class="card-header">Radio Player <p id="oflen"></p></div>
+    <div class="card-content-inner">
+<div tabindex="0" class="plyr plyr--audio plyr--stopped plyr--ready">
+	<audio class="plyr--setup" >
+		<source onerror="asique()" src="http://95.154.254.151:7496/;" type="audio/mpeg" /></audio>
+			<button type="button" data-plyr="play" class="plyr__play-large">
+				<span class="plyr__sr-only">Play</span></button></div>
+					</div></div>
+					</div>
+				</center>
+				<div class="card">
+					<div class="card-content">
+						<div class="card-content-inner">
+						Kamu butuh koneksi internet untuk menggunakan aplikasi ini.<br/>
+            Tidak ada internet? Gunakan versi analog pada saluran <b>89.6 FM</b> / <b>107.6 FM.</b>
+            *(Khusus daerah SMAN 3 Tangsel dan sekitarnya). <br/>
+            <p class="buttons-row">
+            <a href="#" class="button" onclick="window.open('http://sman3tangsel.sch.id', '_system');">SMAN 3 Tangsel</a>
+            <a href="#" class="button" onclick="window.open('http://runsradio.com', '_system');">Runs Radio</a>
+            </p>
+					</div>
+				</div>
+			</div>
+			<div style="text-align:center;margin-top:1px;" id="rafiganteng" class="content-block">
+                 <p>Tarik ke bawah untuk <i>refresh.</i><br/><i class="icon f7-icons">arrow_down</i></p>
+            </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+ 			<!-- Tab Kedua -->
+		<div id="view-2" class="view tab">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="center sliding">Tentang Kami</div>
+				</div>
+			</div>
+		<div class="pages navbar-through">
+			<div data-page="about" class="page">
+				<div class="page-content">
+					<div class="content-block-title">Welcome!</div>
+				<div class="content-block">
+			<div class="content-block-inner">
+		<center>
+				<img src="img/depan.png" width="150px" height="150px">
+		</center>
+          <p><b>Runs Radio</b> adalah sebuah ekskul radio yang menyediakan informasi-informasi
+          berkualitas dan unik, ekskul ini bermarkas di SMAN 3 Kota Tangerang Selatan.</p>
+          Jika ingin menghubungi kami bisa lewat : <br/>
+          <i class="icon f7-icons">social_instagram</i> @runsradio <br/>
+          <i class="icon f7-icons">social_twitter</i> @runsradio <br/>
+          <i class="icon f7-icons">email</i> admin@runsradio.com
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+			<!-- Tab Ketiga -->
+		<div id="view-3" class="view tab">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="center sliding">Jadwal</div>
+				</div>
+			</div>
+		<div class="pages navbar-through">
+			<div class="pages">
+				<div data-page="index-3" class="page">
+			<!-- Nama-nama caster Runs Radio -->
+					<div id="jadwal" class="page-content">
+            <div style='white-space:pre-wrap;text-align:center;' class="content-block-title">JADWAL KEGIATAN SIARAN RUNSRADIO PERIODE 2017/2018</div>
+              <div class="content-block-title">SENIN</div>
+            <div class="list-block media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Abirama</div>
+         </div>
+       </div>
+     </li>
+   </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Pandu</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Reeva</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Fahri</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+ </div>
+              <div class="content-block-title">SELASA</div>
+            <div class="list-block media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Satrio</div>
+         </div>
+       </div>
+     </li>
+   </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Christoper</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Gogo</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Syahla</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+ </div>
+              <div class="content-block-title">RABU</div>
+            <div class="list-block media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Syifani</div>
+         </div>
+       </div>
+     </li>
+   </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Elda</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Cyntia</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Lukas</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+ </div>
+              <div class="content-block-title">KAMIS</div>
+            <div class="list-block media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Rehan</div>
+         </div>
+       </div>
+     </li>
+   </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Ejra</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Faris</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Atul</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Unsya</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+ </div>
+              <div class="content-block-title">JUM'AT</div>
+            <div class="list-block media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Azzahra</div>
+         </div>
+       </div>
+     </li>
+   </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Regina</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Fainta</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                        <div class="item-media"><i class="icon f7-icons">person_fill</i></div>
+                        <div class="item-inner">
+                        <div class="item-title-row">
+                        <div class="item-title">Grafisa</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+ </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+			<!-- Tab Keempat -->
+		<div id="view-4" class="view tab">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="center sliding">Pengembang
+				</div>
+        <div class="right">
+          <a href="#" class="link alert-text"><i class="icon f7-icons">heart</i></a>
+        </div>
+			</div>
+		</div>
+		<div class="pages navbar-through">
+			<div data-page="about" class="page">
+				<div class="page-content">
+				<div style='white-space:pre-wrap;text-align:center;' class="content-block-title">Tim Pengembang</div>
+			<div class="list-block">
+ <ul>
+			<!-- Teks Nama Developer -->
+    <li>
+      <div class="item-content">
+        <div class="item-media"><i class="icon f7-icons">person</i></div>
+        <div class="item-inner">
+          <div class="item-title label">Nama</div>
+          <div class="item-input">
+            <p>Connect Club N3TS</p>
+          </div>
+        </div>
+      </div>
+    </li>
+			<!-- Versi Aplikasi -->
+    <li>
+      <div class="item-content">
+        <div class="item-media"><i class="icon f7-icons">gear</i></div>
+        <div class="item-inner">
+          <div class="item-title label">Versi</div>
+          <div class="item-input">
+            <p>4.5.0</p>
+          </div>
+        </div>
+      </div>
+    </li>
+			<!-- Kontribusi disini -->
+    <li class="align-top">
+      <div class="item-content">
+        <div class="item-media"><i class="icon f7-icons">info</i></div>
+        <div class="item-inner">
+          <div class="item-title label">Kontribusi</div>
+          <div class="item-input">
+
+          </div>
+        </div>
+      </div>
+	  <p id='kontribusi'>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon f7-icons">world_fill</i> http://sman3tangsel.sch.id
+    </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon f7-icons">world_fill</i> http://benikasep.webs.com
+    </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon f7-icons">social_instagram</i> @rafipriatna</p>
+    </li>
+    <center>
+    <img src="img/logo.jpeg" width="300px" heigh="150px"/>
+    </center>
+  </ul>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+			<!-- Buat menu dibagian bawah -->
+	<div class="toolbar tabbar tabbar-labels">
+    <div class="toolbar-inner">
+        <a href="#view-1" class="tab-link active">
+            <i class="icon f7-icons">mic_fill</i>
+            <span class="tabbar-label">Runs</span>
+        </a>
+        <a href="#view-2" class="tab-link">
+            <i class="icon f7-icons">persons</i>
+            <span class="tabbar-label">Tentang Kami</span>
+        </a>
+        <a href="#view-3" class="tab-link">
+            <i class="icon f7-icons">list</i>
+            <span class="tabbar-label">Jadwal</span>
+        </a>
+        <a href="#view-4" class="tab-link">
+            <i class="icon f7-icons">bag</i>
+            <span class="tabbar-label">Pengembang</span>
+        </a>
+    </div>
+</div>
+      <!-- Aplikasi chat -->
+      <div class="statusbar-overlay"></div>
+      <div class="panel-overlay"></div>
+      <div class="login-screen">
+    <div class="view">
+      <div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="close-login-screen">
+                <i class="icon f7-icons">chevron_down</i>
+            </a>
+        </div>
+        <div class="center">Chat</div>
+        <div class="right">
+          <a href="#" class="link" onclick="newUser.remove();login();"><i class="icon f7-icons">settings</i></a>
+        </div>
+    </div>
+</div>
+<div class="pages navbar-through">
+  <div class="page">
+     <div class="page-content login-screen-content">
+       <div data-page="messages" class="page no-toolbar toolbar-fixed">
+           <div class="toolbar messagebar">
+               <div class="toolbar-inner"><a href="#" id="sendPhoto" class="link icon-only"><i class="icon icon-camera"></i></a>
+                   <textarea placeholder="Sentuh disini"></textarea><a href="#" class="link">Kirim</a>
+               </div>
+           </div>
+           <div class="page-content messages-content">
+               <div class="messages"></div>
+           </div>
+       </div>
+   </div>
+ </div>
+</div>
+</div>
+</div>
+    </div>
+  </div>
+			<!-- Javascript penting -->
+    <script type="text/javascript" src="js/rafi.js"></script>
+    <script type="text/javascript" src="js/sfn.js"></script>
+    <script type="text/javascript" src="js/ganteng.js" async></script>
+    <script type="text/javascript" src="js/tamvan.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/1.0.19/firebase.js"></script>
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <script type="text/javascript" src="js/emoticons.js"></script>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
+
+    <script type="text/javascript">
+    function asique() {
+    // Kalo gak ada sumber suara
+    anjay = document.getElementById("oflen");
+    anjay.style.color = "red";
+    anjay.innerHTML = "OFF AIR"
+    return true;
+    }
+    // Kalo ada sumber suara
+    if (asique()) {
+    anjay = document.getElementById("oflen");
+    anjay.style.color = "green";
+    anjay.innerHTML = "ON AIR"
+    }
+    // Animasi tarik kebawah buat refresh
+    var myApp = new Framework7();
+    var $$ = Dom7;
+    // Tarik kebawah buat refresh
+    var ptrContent = $$('.pull-to-refresh-content');
+    // Kalo user narik kebawah
+    ptrContent.on('ptr:refresh', function (e) {
+    // Loading 2 detik
+    setTimeout(function () {
+    location.reload();
+    myApp.pullToRefreshDone();
+    }, 2000);
+    });
+    // Tulisan tarik ke bawah buat refresh
+    function hideRafiganteng() {
+    document.getElementById("rafiganteng").style.display="none";
+    }
+    // Copyright Connect
+    $$('.alert-text').on('click', function (){
+      myApp.alert('Dikembangkan dengan <i id="hatiku" class="icon f7-icons">heart_fill</i> di lab komputer 2.',
+       'Connect Club');
+    });
+    </script>
+  </body>
+</html>
